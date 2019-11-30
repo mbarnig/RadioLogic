@@ -1,1 +1,160 @@
-..
+<!DOCTYPE html>
+<!-- copyright 2019 Marco Barnig : version 1.0.6 -->
+<html lang="en">
+  <head>
+  <meta charset="utf-8">
+  <title>RadioLogicCreator</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width = device-width, initial-scale = 1, maximum-scale=1">
+  <link rel="shortcut icon" href="favicon.ico">
+  <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css"/>
+  <link type="text/css" rel="stylesheet" href="css/jquery.mobile.simpledialog.min.css"/>
+  <link rel="stylesheet" href="css/radiologiccreator.css"/>
+  <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+  <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+  <script type="text/javascript" src="js/jquery.mobile.simpledialog2.js"></script>
+  </head>
+  <body>
+    <div data-role="page" id="page" data-title="RadioLogicCreator" data-theme="a">
+      <div data-role="header" data-theme="b">
+        <h1>RadioLogicCreator</h1>
+        <div data-type="horizontal" data-role="controlgroup" class="ui-btn-left">
+          <button data-icon="home" data-direction="reverse" onclick="orthanc()">Orthanc</button>
+        </div>
+        <div data-type="horizontal" data-role="controlgroup" class="ui-btn-right">
+          <button data-icon="refresh" data-direction="reverse" onclick="showjobs()">Jobs</button>
+        </div>
+      </div>  <!-- end header -->
+      <div class="ui-content" id="maincontainer">
+      <!-- 3 columns : logo, author, casename -->
+        <div class="ui-grid-a">
+          <div class="ui-block-a">
+            <div class="ui-grid-a">
+              <div class="ui-block-a">
+                <div id="logo">
+                  <img src="images/radiologic-logo.png" alt="logo">
+                </div>
+              </div> <!-- end ui-block-a -->
+              <div class="ui-block-b">
+                <form>
+                  <div class = "ui-field-contain">
+                    <label style="width:80px" for="clinical-case-author">Author</label>
+                    <input type="text" placeholder="Pr Guillaume Bierry" data-mini="true" name="clinical-case-author" id="clinical-case-author" value="">
+                    <label style="width:80px" for="dicom-resource-type">Case Type</label>
+                    <input type="text" class="ui-disabled" readonly="readonly" placeholder="Study" data-mini="true" name="dicom-resource-type" id="dicom-resource-type" value="">
+                  </div>
+                  <textarea name="info-text" id="info-text">Welcome to RadioLogicCreator. 'Case Type' and 'DICOM ID' are readonly.</textarea>
+                </form>
+              </div> <!-- end ui-block-b -->
+            </div>  <!-- end ui-grid-a -->
+          </div> <!-- end ui-block-a -->
+          <div class="ui-block-b">
+            <form>
+              <div class = "ui-field-contain">
+                <label for="clinical-case-name">Clinical Case</label>
+                <input type="text" placeholder="MSK_P1_C1" data-mini="true" name="clinical-case-name" id="clinical-case-name" value="">
+                <label for="dicom-resource-id">DICOM ID</label>
+                <input type="text" class="ui-disabled" readonly="readonly" placeholder="c2b4a03a-40922fcb-57f27629-a1d5d75b-8ec23ef0" data-mini="true" name="dicom-resource-id" id="dicom-resource-id" value="">
+                <label for="clinical-case-description">Description</label>
+                <input type="text" placeholder="Douleur genou gauche, 20 ans (F)" data-mini="true" name="clinical-case-description" id="clinical-case-description" value="">
+              </div>
+            </form>
+            <div id="radioGroup" class="ui-field-contain">      
+              <fieldset data-role="controlgroup" data-type="horizontal">
+                <input style="background-color:#3388cb; color:white" type="radio" name="dicom-files" id="dicom-files-stored" value="stored" checked="checked">
+                <label for="dicom-files-stored">Select stored DICOM files</label>
+                <input style="background-color:#3388cb; color:white" type="radio" name="dicom-files" id="dicom-files-upload" value="upload">
+                <label for="dicom-files-upload">Upload new DICOM files</label>
+              </fieldset>
+            </div>
+          </div> <!-- end ui-block-b -->
+        </div> <!-- end ui-grid-a -->
+        <!-- 2 columns : Diagnosis fields -->
+        <div class="ui-grid-a">
+          <div class="ui-block-a">
+            <form>
+              <div class = "ui-field-contain">
+                <label for="diagnosis-0">Diagnosis 0</label>
+                <input type="text" placeholder="Métastase vertébrale" data-mini="true" name="diagnosis-0" id="diagnosis-0" value="">
+                <label for="diagnosis-2">Diagnosis 2</label>
+                <input type="text" placeholder="Sarcome d'Ewing" data-mini="true" name="diagnosis-2" id="diagnosis-2" value="">
+                <label for="diagnosis-4">Diagnosis 4</label>
+                <input type="text" placeholder="Chondrome sous périosté" data-mini="true" name="diagnosis-4" id="diagnosis-4" value="">
+                <label for="diagnosis-6">Diagnosis 6</label>
+                <input type="text" data-mini="true" name="diagnosis-6" id="diagnosis-6" value="">   
+                <label for="diagnosis-8">Diagnosis 8</label>
+                <input type="text" data-mini="true" name="diagnosis-8" id="diagnosis-8" value=""> 
+              </div>
+            </form>
+          </div> <!-- end ui-block-a -->
+          <div class="ui-block-b">
+            <form>
+              <div class = "ui-field-contain">	
+                <label for="diagnosis-1">Diagnosis 1</label>
+                <input type="text" placeholder="Ostéosarcome" data-mini="true" name="diagnosis-1" id="diagnosis-1" value="">
+                <label for="diagnosis-3">Diagnosis 3</label>
+                <input type="text" placeholder="Ostéomyélite à pyogènes" data-mini="true" name="diagnosis-3" id="diagnosis-3" value="">
+                <label for="diagnosis-5">Diagnosis 5</label>
+                <input type="text" data-mini="true" name="diagnosis-5" id="diagnosis-5" value="">
+                <label for="diagnosis-7">Diagnosis 7</label>
+                <input type="text" data-mini="true" name="diagnosis-7" id="diagnosis-7" value="">
+                <label for="diagnosis-9">Diagnosis 9</label>
+                <input type="text" data-mini="true" name="diagnosis-9" id="diagnosis-9" value=""> 
+              </div>
+            </form>
+          </div> <!-- end ui-block-b -->
+        </div> <!-- end ui-grid-a -->
+        <!-- 4 columns : observation, answer, date, upload -->
+        <div class="ui-grid-c">
+          <div class="ui-block-a">
+            <button id="chooseObservationFile" style="border-radius: 1.75em; background-color:#3388cb; color:white">Choose Observation Image File</button>
+            <input type="file" name="observationImage" id="observationImage" accept="image/x-png">
+            <div id="previewObservation"></div>
+          </div> <!-- end ui-block-a -->
+          <div class="ui-block-b">
+            <button id="chooseAnswerFile" style="border-radius: 1.75em; background-color:#3388cb; color:white">Choose Answer Image File</button>
+            <input type="file" name="answerImage" id="answerImage" accept="image/x-png">		
+            <div id="previewAnswer"></div>
+            <canvas id="canvasAnswer" width="960" height="640" style="display: none"></canvas>
+          </div> <!-- end ui-block-b -->
+          <div class="ui-block-c">
+            <form>
+              <div class = "ui-field-contain">
+                  <label style="width:150px" for="correct-diagnosis">Correct Diagnosis</label>
+                  <input type="number" data-mini="true" min="0" max="9" placeholder="1" name="correct-diagnosis" id="correct-diagnosis" value=""> 
+                </div>
+                <div class = "ui-field-contain">
+                  <label style="width:150px" for="scramble-key">Scramble Key</label>
+                  <input type="number" data-mini="true" min="1" max="9999" maxlength="4" placeholder="4321" name="scramble-key" id="scramble-key" value=""> 
+                </div>
+                <div class = "ui-field-contain">
+                  <label style="width:150px" for="clinical-case-date">Clinical Case Date</label>
+                  <input type="text" data-mini="true" name="clinical-case-date" id="clinical-case-date">   
+                </div>
+              </form>
+              <button id="validation" style="border-radius: 1.75em; background-color:#3388cb; color:white" onclick="validation()">Validate</button>
+              <button id="submission" class="ui-disabled" style="border-radius: 1.75em; background-color:orange; color:white" onclick="submission()">Submit</button>
+            </div>  <!-- end ui-block-c -->
+            <div class="ui-block-d">
+              <button id="chooseDicomFolder" class="ui-disabled" style="border-radius: 1.75em; background-color:#3388cb; color:white">Choose DICOM Files</button>
+              <div class="hideFileSelector">
+              <input type="file" name="dicomFolder" id="dicomFolder" multiple="multiple" onchange="makeDicomFileList();">
+            </div>
+            <div id="dropzone">
+              <div id="boxtitle">Drop DICOM Folder here</div>
+            </div>
+            <div id="listing">
+              <h3>&nbsp;&nbsp;DICOM Directory Tree:</h3>
+              <ul id="dicom-file-list"></ul>
+            </div>
+          </div>  <!-- end ui-block-d -->
+        </div> <!-- end ui-grid-c -->
+      </div>  <!-- end maincontainer -->
+      <div data-role="footer" data-position="fixed" data-id="persistentfooter" data-theme="b">
+        <div class="rlFooter">RadioLogicCreator &copy; 2019</div>
+      </div>  <!-- end footer -->
+    </div> <!-- end page -->
+    <script src="js/radiologiccreator.js"></script> 
+  </body>
+</html>
