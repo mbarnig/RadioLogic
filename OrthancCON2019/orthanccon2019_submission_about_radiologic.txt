@@ -1,1 +1,32 @@
-..
+﻿OrthancCon 2019: December 13 – 15, Liège, Belgium
+Submission of a talk about RadioLogic, a third-party FLOSS development on the top of Orthanc
+
+Title:
+
+RadioLogic: a case-based learning and self-assessment tool for the Orthanc Ecosystem for Medical Imaging
+
+Author:
+
+BARNIG Marco, Luxembourg ; web: https://www.web3.lu ; mail: mbarnig@pt.lu ; linkedin: https://www.linkedin.com/in/marco-barnig-b33074118/
+
+Abstract: (997 characters)
+
+Case-based learning (CBL) is an efficient method for radiologist education. RadioLogic is a system to create clinical cases from real DICOM files and provides a self-assessment tool to view the studies, submit a diagnosis and compare the performance with peers. The main components are a progressive web application and an Orthanc plugin to create and serve the teaching cases. The user selects a learning module, views the cases, submits his diagnosis and checks the results (Fig. 1). The teacher selects a patient, study, series or instance inside an Orthanc server to start the creation of a clinical case in a webpage. He enters the name of the clinical case, the choices for a possible diagnosis, the answer and two images showing clinical data and explanations about the correct diagnosis (Fig. 2). An asynchronous job is started in the Orthanc job engine to customize and compress the case and to generate two DICOM files from these images including private tags to hold the submitted data.
+
+Biography: (500 characters)
+
+Marco Barnig is a retired telecom engineer with a research background at the ETH Zurich, where he worked with the first microprocessors. In 1978, he joined P&T Luxembourg, the incumbent telecom operator in Luxembourg. He was responsible for new telecommunication networks: the latest were LUXGSM and Internet. 1993 he became responsible for sales and marketing of all telecommunications services. Since the late 90s, he blogs about new technologies and AI on his personal websites during his leisure.
+
+Bibliography:
+
+• Jodogne, Sébastien. (2018). The Orthanc Ecosystem for Medical Imaging. Journal of Digital Imaging. 31. 10.1007/s10278-018-0082-y. (https://link.springer.com/article/10.1007%2Fs10278-018-0082-y)
+• Hafey, Chris (2018). Cornerstone.js - an open source project with a goal to deliver a complete web based medical imaging platform (https://cornerstonejs.org)
+• Open Health Imaging Foundation (2019). Enabling innovation in imaging through collaborative development: OHIF viewer (http://ohif.org)
+• Barnig, Marco (2018). Medical imaging projects (https://www.web3.lu/radiologic/)
+• Barnig, Marco (2016). OrthancPi - a mini DICOM PACS Server (https://www.radiologic.fr/orthancpi.html)
+
+Figures: (resolution 2048 x 1536 pixels)
+
+• Figure 1: Screenshots of four RadioLogicViewer panels
+• Figure 2: Top: Screenshots of the Orthanc server plugins and study webpages; Bottom: Screenshot of the RadioLogicCreator webpage with a zoomed view of the upload modus panel
+
