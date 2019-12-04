@@ -1,1 +1,8 @@
-..
+{
+  "UserMetadata" : {
+    "RadioLogicSessions" : 4321
+  },
+  "UserContentType" : {
+    "RadioLogicAssessmentResults" : [4321, "application/json"]
+  }
+}
