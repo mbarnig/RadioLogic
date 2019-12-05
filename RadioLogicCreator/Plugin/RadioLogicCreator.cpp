@@ -88,10 +88,10 @@ if (RadioLogicCreator::counter_ == RadioLogicCreator::maxSteps_) {
   RadioLogicCreator::instancesArray_.clear();
   // get ID's of the observation and answer templates from server
   char* observationTemplateId = OrthancPluginLookupInstance(context,
-    "11d06cef-2542c88b-887e93e0-f32afee0-4194c64a");
+    "1.2.826.0.1.3680043.9.6278.4.296485376.1.1575478248.109302");
   LOG(INFO) << "*** observationTemplateId: " << observationTemplateId;
   char* answerTemplateId = OrthancPluginLookupInstance(context,
-    "443e8601-2ee57acc-33015fc3-36a0cf6d-8c15ef5b");
+    "1.2.826.0.1.3680043.9.6278.4.296485376.1.1575478193.109301");
   LOG(INFO) << "*** answerTemplateId: " << answerTemplateId;
   if (observationTemplateId == NULL || answerTemplateId == NULL) {
     LOG(INFO) << "*** Observation or Answer DICOM templates are missing";
