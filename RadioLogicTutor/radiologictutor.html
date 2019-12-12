@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+		<meta charset="UTF-8">
+		<title>RadioLogicExam</title>
+        <meta name="apple-mobile-web-app-capable" content="yes" >
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="viewport" content="user-scalable=no, width = device-width, initial-scale = 1, maximum-scale=1">
+		<link rel="shortcut icon" href="favicon.ico">
+		<link type="text/css" rel="stylesheet" href="css/jquery.mobile.min.css" />
+		<link type="text/css" rel="stylesheet" href="css/cornerstone.min.css" />
+		<link type="text/css" rel="stylesheet" href="css/jquery.jqplot.min.css" />
+		<link type="text/css" rel="stylesheet" href="css/radiologicexam.css" />
+		<!-- initialize jQuery Mobile after loading the jQuery script and before loading the jQuery Mobile script -->
+		<script type="text/javascript" src="js/jquery.min.js"></script>
+		<script>
+		$(document).on("mobileinit",  function() {
+		// set transition
+		$.mobile.defaultPageTransition = 'none';
+		//set theme
+		$.mobile.page.prototype.options.theme = "b";
+		// set namespace
+		
+		// set configuration
+		
+		// test initialization
+		// alert("jQuery Mobile is initialized");
+		});
+		</script>
+		<script type="text/javascript" src="js/jquery.mobile.min.js"></script>
+		<script type="text/javascript" src="js/inobounce.min.js"></script>
+		<script type="text/javascript" src="js/DragDropTouch.min.js"></script>
+		<script type="text/javascript" src="js/hammer.min.js"></script>
+		<script type="text/javascript" src="js/jquery.jqplot.min.js"></script>
+		<script type="text/javascript" src="js/jqplot.donutRenderer.min.js"></script>
+		<script type="text/javascript" src="js/crc.min.js"></script>
+		<script type="text/javascript" src="js/tree.js"></script>
+		<script type="text/javascript" src="js/queue.js"></script>
+		<script type="text/javascript" src="js/cornerstone.min.js"></script>
+		<script type="text/javascript" src="js/libopenjpeg.js"></script>
+		<script type="text/javascript" src="js/cornerstoneMath.min.js"></script>
+		<script type="text/javascript" src="js/cornerstoneTools.min.js"></script>
+		<!--
+		<script type="text/javascript" src="js/dicomParser.min.js"></script>
+		-->
+		<script type="text/javascript" src="js/dicomParserUTF8.js"></script>
+		
+		<script type="text/javascript" src="js/cornerstoneWADOImageLoader.min.js"></script>
+		<script type="text/javascript" src="js/radiologic-main.js"></script>
+		<script type="text/javascript" src="js/radiologic-login.js"></script>
+		<script type="text/javascript" src="js/radiologic-settings.js"></script>
+		<script type="text/javascript" src="js/radiologic-cases.js"></script>
+		<script type="text/javascript" src="js/radiologic-observations.js"></script>
+		<script type="text/javascript" src="js/radiologic-images.js"></script>
+		<script type="text/javascript" src="js/radiologic-diagnosis-1.js"></script>
+		<script type="text/javascript" src="js/radiologic-answer.js"></script>
+		<script type="text/javascript" src="js/radiologic-results.js"></script>
+		<script type="text/javascript" src="js/radiologic-help.js"></script>
+		<script type="text/javascript" src="js/radiologic-temp.js"></script>
+		<link rel="apple-touch-startup-image" href="images/startup.png" />
+		<link rel="apple-touch-icon" sizes="76x76" href="images/radiologic-76x76.png" />
+		<script>
+		// ********************************************************************************
+		// global variables
+		// ********************************************************************************
+		
+		// RadioLogic states
+		// these boolean states are changed based on values stored in the web browser or modified during session
+		
+		var clinicalCaseSelected = false;
+		var clinicalCaseLoaded = false;
+		var diagnosisSubmitted = false;
+		var devicePosition = "landscape";
+		var myresults = true;
+		var userIsAdmin = false;
+		// test variables
+		var moduleload = true;
+		var layoutState = false;
+		thumbnailNumber = 20;
+		var thumbnailColors = ["#FF2400", "#6AFB92", "#00FFFF", "#800080", "#C68E17", "#990012", "#FF00FF", "#FBB117", "#4CC417", "#008080", "#7D0541", "#EDDA74", "#6960EC",  "#E42217", "#728C00", "#FAAFBE", "#FF7F50", "#B2C248", "#4863A0", "#806517"];
+		// set view in mode landscape with thumbnail panel
+		var thumbnailPanelWidth = 12;  // css width must be 12%
+		var thumbnailPanelHeight = 15;  // css height must be 15%
+		// global variables
+		var vplt = {state : "quarter"};
+		var vprt = {state : "quarter"};
+		var vplb = {state : "quarter"};
+		var vprb = {state : "quarter"};
+		
+		var privateCaseIds = [];
+	
+		
+		// prototypes
+		Storage.prototype.setObj = function(key, obj) {
+			return this.setItem(key, JSON.stringify(obj));
+		};
+		
+		Storage.prototype.getObj = function(key) {
+			return JSON.parse(this.getItem(key));
+		};
+		
+	</script>
+	</head>
+    <body>
+	<!--
+	*************************************************************************
+	0. Main Page
+	*************************************************************************
+	-->
+	<div data-role="page" id="main" data-title="RadioLogicExam">
+		<div data-role="header" data-position="fixed">
+				<div data-role="navbar">
+					<ul>
+						<li class="tab"><a href="#login">Login</a></li>
+						<li class="tab"><a href="#about">About</a></li>
+						<li class="tab"><a href="#settings">Settings</a></li>
+						<li class="tab"><a href="#cases">Cases</a></li>
+						<li class="tab ui-disabled"><a href="#observations">Observations</a></li>
+						<li class="tab ui-disabled"><a href="#images">Images</a></li>
+						<li class="tab ui-disabled"><a href="#diagnosis">Diagnosis</a></li>
+						<li class="tab ui-disabled"><a href="#answer">Answer</a></li>
+						<li class="tab ui-disabled"><a href="#results">Results</a></li>
+						<li class="tab"><a href="#help">Help</a></li>
+					</ul>
+				</div>  <!-- /navbar -->
+		</div>  <!-- / header -->
+		<div data-role="content" id="maincontainer">
+			<div id="maincontent">			 
+			</div>  <!-- end maincontent -->
+		</div>  <!-- end maincontainer -->
+		<div data-role="footer" data-position="fixed" data-id="persistentfooter">
+			<div class="rlFooter">RadioLogicExam &copy; 2016</div>
+		</div>  <!-- /footer -->
+	</div>  <!-- /main -->
+	
+	<!--
+	*************************************************************************
+	1. Login Page
+	*************************************************************************
+	-->
+	<div data-role="page" id="login" data-title="RadioLogicExam Login">
+			<div data-role="header" data-position="fixed">
+				<div data-role="navbar">
+					<ul>
+						<li class="tab"><a href="#"  class="ui-btn-active ui-state-persist">Login</a></li>
+						<li class="tab"><a href="#about">About</a></li>
+						<li class="tab"><a href="#settings">Settings</a></li>
+						<li class="tab"><a href="#cases">Cases</a></li>
+						<li class="tab ui-disabled"><a href="#observations">Observations</a></li>
+						<li class="tab ui-disabled"><a href="#images">Images</a></li>
+						<li class="tab ui-disabled"><a href="#diagnosis">Diagnosis</a></li>
+						<li class="tab ui-disabled"><a href="#answer">Answer</a></li>
+						<li class="tab ui-disabled"><a href="#results">Results</a></li>
+						<li class="tab"><a href="#help">Help</a></li>
+					</ul>
+				</div>  <!-- /navbar -->
+			</div>  <!-- / header -->
+			<div data-role="content" id="logincontainer">
+				<div id="logincontent">
+					<div id="userlogin" > 
+						<div class="ui-grid-a">
+							<div class="ui-block-a">
+							<label for="myusername">Username :</label>
+							<input type="text" name="myusername" id="myusername">
+							</div>
+							<div class="ui-block-b">
+							<label for="mypassword">Password :</label>
+							<input type="password" name="mypassword" id="mypassword">
+							</div>
+						</div><!-- /grid-a -->
+							<fieldset data-role="controlgroup">
+								<input type ="radio" name="usersignin" id="newuser" value="new"  />
+								<label for="newuser">I am a new user and I chosed a name and password</label>
+								<input type ="radio" name="usersignin" id="reguser" value="reg" checked="checked"/>
+								<label for="reguser">I am a registrated user in this device's browser and I entered my name and password</label>
+							</fieldset>
+							<button class="ui-btn ui-btn-inline" onclick="signin()">Login</button>	
+					</div>  <!-- / userlogin -->
+					<div id="userlogout">
+						<h3>Do you really want to logout ?</h3>
+						<br/><br/><br/><br/><br/><br/><br/>
+						<button class="ui-btn ui-btn-inline" onclick="cancel()">Cancel</button>
+						<button class="ui-btn ui-btn-inline" onclick="quit()">Logout and Quit</button>	
+						<button class="ui-btn ui-btn-inline" onclick="logout()">Logout and Continue</button>	
+					</div>  <!-- / userlogout -->
+				</div>  <!-- / logincontent -->
+			</div>  <!-- / logincontainer -->
+			<div data-role="footer"  data-position="fixed" data-id="persistentfooter">
+					<div class="rlFooter">RadioLogicExam &copy; 2016</div>
+					</div>  <!-- / footer -->
+			</div>  <!-- / login -->
+
+	<!--
+	*************************************************************************
+	2. About Page
+	*************************************************************************
+	-->
+	<div data-role="page" id="about" data-title="RadioLogicExam About">
+			<div data-role="header" data-position="fixed">
+				<div data-role="navbar">
+					<ul>
+						<li class="tab"><a href="#login">Login</a></li>
+						<li class="tab"><a href="#"  class="ui-btn-active ui-state-persist">About</a></li>
+						<li class="tab"><a href="#settings">Settings</a></li>
+						<li class="tab"><a href="#cases">Cases</a></li>
+						<li class="tab ui-disabled"><a href="#observations">Observations</a></li>
+						<li class="tab ui-disabled"><a href="#images">Images</a></li>
+						<li class="tab ui-disabled"><a href="#diagnosis">Diagnosis</a></li>
+						<li class="tab ui-disabled"><a href="#answer">Answer</a></li>
+						<li class="tab ui-disabled"><a href="#results">Results</a></li>
+						<li class="tab"><a href="#help">Help</a></li>
+					</ul>
+				</div>  <!-- /navbar -->
+			</div>  <!-- / header -->
+			<div data-role="content" id="aboutcontainer">
+				<div id="aboutcontent">
+				   <div id="aboutpanel">
+						<img src="images/radiologic-logo.png" alt="Logo">
+						<h3>RadioLogicExam : Version 0.9 Build 22</h3>
+						<p>Website : <a href="http://www.radiologic.fr" target="_blank">www.radiologic.fr</a><br/>
+						Medical Guidance : <a href="https://www.researchgate.net/profile/Guillaume_Bierry" target="_blank">Pr. Guillaume Bierry</a><br/>
+						Coding &amp; Design : <a href="http://www.web3.lu/about/" target="_blank">Marco Barnig</a><br/>
+						Frameworks : <a href="https://github.com/chafey/cornerstone" target="_blank">Cornerstone</a>, <a href="http://www.orthanc-server.com/" target="_blank">Orthanc</a>, <a href="https://jquery.com/" target="_blank">jQuery</a>, <a href="https://jquerymobile.com/" target="_blank">jQuery Mobile</a><br/>
+						Tools : <a href="https://github.com/jqPlot/jqPlot" target="_blank">jqPlot</a>, <a href="https://github.com/lazd/iNoBounce" target="_blank">iNoBounce</a>, <a href="https://github.com/Bernardo-Castilho/dragdroptouch" target="_blank">DragDropTouch</a>, <a href="https://github.com/emn178/js-crc" target="_blank">js-crc</a><br/>
+						Credits : <a href="http://chafey.blogspot.lu/" target="_blank">Chris Hafey</a>, <a href="http://prevuemedical.com/#about" target="_blank">Erik Ziegler</a>, <a href="http://www.montefiore.ulg.ac.be/~jodogne/" target="_blank">Sébastien Jodogne</a>, <a href="https://jquery.org/team/" target="_blank">jQuery Team</a>, <a href="https://jquerymobile.com/about/" target="_blank">jQuery Mobile Team</a></p>
+				    </div>  <!-- / aboutpanel -->
+				</div>  <!-- / aboutcontent -->
+			</div>  <!-- / aboutcontainer -->
+			<div data-role="footer"  data-position="fixed" data-id="persistentfooter">
+					<div class="rlFooter">RadioLogicExam &copy; 2016</div>
+			</div>  <!-- / footer -->
+			</div>  <!-- / about -->
+	
+	<!--
+	*************************************************************************
+	3. Settings Page
+	*************************************************************************
+	-->
+	<div data-role="page" id="settings" data-title="RadioLogicExam Settings">
+	<div data-role="header" data-position="fixed">
+		<div data-role="navbar">
+			<ul>
+				<li class="tab"><a href="#login">Login</a></li>
+				<li class="tab"><a href="#about">About</a></li>
+				<li class="tab"><a href="#" class="ui-btn-active ui-state-persist">Settings</a></li>
+				<li class="tab"><a href="#cases">Cases</a></li>
+				<li class="tab ui-disabled"><a href="#observations">Observations</a></li>
+				<li class="tab ui-disabled"><a href="#images">Images</a></li>
+				<li class="tab ui-disabled"><a href="#diagnosis">Diagnosis</a></li>
+				<li class="tab ui-disabled"><a href="#answer">Answer</a></li>
+				<li class="tab ui-disabled"><a href="#results">Results</a></li>
+				<li class="tab"><a href="#help">Help</a></li>
+			</ul>
+		</div>  <!-- /navbar -->
+	</div>  <!-- / header -->
+	<div data-role="content" id="settingscontainer">
+		<div id="settingscontent">
+			<div id="settingspanel">
+				<div data-role="collapsible-set">
+					<div data-role="collapsible" id="server">
+						<h3>RadioLogic Archive Location</h3>
+						<form>
+						<fieldset data-role="controlgroup">
+						<input type="radio" name="serversettings" id="publicserver" value="publicserver" checked="checked">
+						<label for="publicserver">I use the public RadioLogic Archive at www.radiologic.fr</label>
+						<input type="radio" name="serversettings" id="orthancmac" value="orthancmac">
+						<label for="orthancmac">I use the private RadioLogic Archive OrthancMac in my LAN or WLAN</label>
+						<!--
+						<input type="radio" name="serversettings" id="orthancpi" value="orthancpi">
+						<label for="orthancpi">I use the private RadioLogic Archive OrthancPi in my LAN or WLAN</label>
+						-->
+						</fieldset>
+						</form>
+						<button class="ui-btn ui-btn-inline" onclick="applyServerSettings()">Apply my choice</button>
+						<button class="ui-btn ui-btn-inline" onclick="saveServerSettings()">Apply and save my choice</button>
+					</div>  <!-- end collapsible server location -->
+					<div data-role="collapsible" id="system">
+						<h3>System Preferences</h3>
+						<form>
+						<fieldset data-role="controlgroup">
+						<input type="checkbox" name="syspref" id="iosbouncing" value="iosbouncing" checked="checked">
+						<label for="iosbouncing">Prevent Bouncing in iOS devices</label>
+						<input type="checkbox" name="syspref" id="pixelrep" value="pixelrep">
+						<label for="pixelrep">Activate pixelReplication in Zooms</label>
+						</fieldset>
+						</form>	
+						<button class="ui-btn ui-btn-inline" onclick="applySystemSettings()">Apply my settings</button>
+						<button class="ui-btn ui-btn-inline" onclick="saveSystemSettings()">Apply and save my settings</button>
+					</div>  <!-- end collapsible system preferences-->
+					<div data-role="collapsible" id="reset">
+						<h3>Reset my user data</h3>
+						<div class="ui-grid-a">
+							<div class="ui-block-a">
+								<button class="ui-btn ui-btn-inline" onclick="userReset()">Reset</button>
+							</div>  <!-- ui-block-a -->
+							<div id="myresets" class="ui-block-b">
+								<p>The number of resets is registrated in your local user account.</p>
+							</div>  <!-- ui-block-b -->
+						</div>  <!-- ui-grid-a -->
+					</div>  <!-- end collapsible reset-->
+					<div data-role="collapsible" id="admin">
+						<h3>User Administration</h3>
+						<form>
+						<fieldset data-role="controlgroup">
+						<legend>Manage Users</legend>
+						<input type="radio" name="useradmin" id="showusers" value="show" checked="checked">
+						<label for="showusers">Show all registrated users</label>
+							<div class="ui-grid-a">
+								<div class="ui-block-a">
+									<input type="radio" name="useradmin" id="deleteuser"  value="del">
+								</div>  <!-- ui-block-a -->
+								<div class="ui-block-b">
+									<label for="deleteuser">Delete the user with name :</label>
+									<input type="text" name="useradmin" id="userdel">
+								</div>  <!-- ui-block-b -->
+							</div>  <!-- ui-grid-a -->
+						<input type="radio" name="useradmin" id="deleteallusers" value="delall">
+						<label for="deleteallusers">Delete all registrated users and clear admin account</label>
+						</fieldset>
+						</form>
+						<button class="ui-btn ui-btn-inline" id="adminexecute" onclick="manageUsers()">Execute</button>
+						<div id="userpanel">
+						<div id="displayusers"></div>
+						</div>  <!-- end userpanel -->
+					</div>  <!-- end collapsible  admin -->
+				</div> <!-- end collapsible-set -->
+			</div>  <!--  settingspanel -->
+		</div>  <!--  settingscontent -->
+	</div>  <!--  settingscontainer -->
+	<div data-role="footer"  data-position="fixed" data-id="persistentfooter">
+	<div class="rlFooter">RadioLogicExam &copy; 2016</div>
+	</div>  <!-- / footer -->
+</div>  <!-- / settings -->
+
+	<!--
+	*************************************************************************
+	4. Cases Page
+	*************************************************************************
+	-->	
+	<div data-role="page" id="cases" data-title="RadioLogicExam Cases">
+			<div data-role="header" data-position="fixed">
+				<div data-role="navbar">
+					<ul>
+						<li class="tab"><a href="#login">Login</a></li>
+						<li class="tab"><a href="#about">About</a></li>
+						<li class="tab"><a href="#settings">Settings</a></li>
+						<li class="tab"><a href="#" class="ui-btn-active ui-state-persist">Cases</a></li>
+						<li class="tab ui-disabled"><a href="#observations">Observations</a></li>
+						<li class="tab ui-disabled"><a href="#images">Images</a></li>
+						<li class="tab ui-disabled"><a href="#diagnosis">Diagnosis</a></li>
+						<li class="tab ui-disabled"><a href="#answer">Answer</a></li>
+						<li class="tab ui-disabled"><a href="#results">Results</a></li>
+						<li class="tab"><a href="#help">Help</a></li>
+					</ul>
+				</div>  <!-- /navbar -->
+			</div>  <!-- / header -->
+			<div data-role="content" id="casescontainer">
+				<div id="casescontent">
+					<div class="ui-field-contain">
+					<label for="select-session" class="select">Select Session : </label>
+					<select name="select-session" id="select-session" data-theme="b">
+					</select>
+				</div>  <!-- end fieldcontain -->
+				<div id = "show-data"></div>
+				<!-- align buttons in one line -->
+				<input id="sessionbutton" type="button"  value="View selected session, then click list item to load clinical case" onclick="loadSession()" disabled>
+						<div id="casebox">
+						<ul id="caselist" data-role="listview" data-theme="b" data-count-theme="b"  data-inset="true">
+						</ul>
+						</div>  <!-- end casebox -->
+				</div>  <!-- / casescontent -->
+			</div>  <!-- / casescontainer -->
+			<div data-role="footer"  data-position="fixed" data-id="persistentfooter">
+				<div class="rlFooter">RadioLogicExam &copy; 2016</div>
+			</div>  <!-- / footer -->
+	</div>  <!-- / cases -->
+	
+	<!--
+	*************************************************************************
+	5. Observations Page
+	*************************************************************************
+	-->
+	<div data-role="page" id="observations" data-title="RadioLogicExam Observations">
+			<div data-role="header" data-position="fixed">
+				<div data-role="navbar">
+					<ul>
+						<li class="tab"><a href="#login">Login</a></li>
+						<li class="tab"><a href="#about">About</a></li>
+						<li class="tab"><a href="#settings">Settings</a></li>
+						<li class="tab"><a href="#cases">Cases</a></li>
+						<li class="tab"><a href="#" class="ui-btn-active ui-state-persist">Observations</a></li>
+						<li class="tab ui-disabled"><a href="#images">Images</a></li>
+						<li class="tab"><a href="#diagnosis">Diagnosis</a></li>
+						<li class="tab ui-disabled"><a href="#answer">Answer</a></li>
+						<li class="tab ui-disabled"><a href="#results">Results</a></li>
+						<li class="tab"><a href="#help">Help</a></li>
+					</ul>
+				</div>  <!-- /navbar -->
+			</div>  <!-- / header -->
+			<div data-role="content" id="observationscontainer">
+				<div id="observationscontent">
+				<div id="observationspanel"></div>
+				</div>  <!-- / observationscontent -->
+			</div>  <!-- / observationscontainer -->
+			<div data-role="footer"  data-position="fixed" data-id="persistentfooter">
+				<div class="rlFooter">RadioLogicExam &copy; 2016</div>
+			</div>  <!-- / footer -->
+			</div>  <!-- /observations -->
+	
+	<!--
+	*************************************************************************
+	6. Images Page
+	*************************************************************************
+	-->	
+	<div data-role="page" id="images" data-title="RadioLogicExam Images">
+		<div data-role="header" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+					<li class="tab"><a href="#diagnosis" onclick="manageHammer(false)">Return</a></li>
+					<li class="tab"><a href="#" class="ui-btn-active ui-state-persist" onclick="manageViewports()">Layout</a></li>
+					<li class="tab"><a href="#" onclick="scrollStack()">Scroll</a></li>
+					<li class="tab"><a href="#" onclick="zoom()">Zoom</a></li>
+					<li class="tab"><a href="#" onclick="changeContrast()">Contrast</a></li>
+					<li class="tab"><a href="#" onclick="overlayInfo()">Info On</a></li>
+				</ul>
+			</div>  <!-- /navbar -->
+		</div>  <!-- / header -->
+			<div data-role="content" id="imagescontainer">
+						<div id="imagescontent"> 
+			<div id="imagesPanel">
+				<div id="viewPanelLeftTop" ondrop="drop(event)" ondragover="allowDrop(event)">
+						<div class="topleft">Series:</div>
+						<div class="topright">WW/WC:</div>
+						<div class="bottomleft">Image Number:</div>
+						<div class="bottomright">Zoom:</div>
+				</div>
+				<div id="viewPanelRightTop" ondrop="drop(event)" ondragover="allowDrop(event)">
+						<div class="topleft">Series:</div>
+						<div class="topright">WW/WC: |</div>
+						<div class="bottomleft">Image Number:</div>
+						<div class="bottomright">Zoom:</div>
+				</div>
+				<div id="viewPanelLeftBottom" ondrop="drop(event)" ondragover="allowDrop(event)">
+						<div class="topleft">Series:</div>
+						<div class="topright">WW/WC:</div>
+						<div class="bottomleft">Image Number:</div>
+						<div class="bottomright">Zoom:</div>
+				</div>
+				<div id="viewPanelRightBottom" ondrop="drop(event)" ondragover="allowDrop(event)">
+						<div class="topleft">Series:</div>
+						<div class="topright">WW/WC:</div>
+						<div class="bottomleft">Image Number:</div>
+						<div class="bottomright">Zoom:</div>
+				</div>
+			</div>
+			<div id="thumbnailPanel">
+				<div id="thumbnailContainer"></div>
+			</div>
+		</div>
+			</div>  <!-- end imagescontainer -->
+			<div data-role="footer"  data-position="fixed" data-id="persistentfooter">
+				<div class="rlFooter">RadioLogicExam &copy; 2016</div>
+			</div>  <!--  footer -->
+	</div>  <!--  images-->
+		
+	<!--
+	*************************************************************************
+	7. Diagnosis Page
+	*************************************************************************
+	-->	
+	<div data-role="page" id="diagnosis" data-title="RadioLogicExam Diagnosis">
+			<div data-role="header" data-position="fixed">
+				<div data-role="navbar">
+					<ul>
+						<li class="tab"><a href="#login">Login</a></li>
+						<li class="tab"><a href="#about">About</a></li>
+						<li class="tab"><a href="#settings">Settings</a></li>
+						<li class="tab"><a href="#cases">Cases</a></li>
+						<li class="tab"><a href="#observations">Observations</a></li>
+						<li class="tab ui-disabled"><a href="#images">Images</a></li>
+						<li class="tab"><a href="#" class="ui-btn-active ui-state-persist">Diagnosis</a></li>
+						<li class="tab ui-disabled"><a href="#answer">Answer</a></li>
+						<li class="tab ui-disabled"><a href="#results">Results</a></li>
+						<li class="tab"><a href="#help">Help</a></li>
+					</ul>
+				</div>  <!-- /navbar -->
+			</div>  <!-- / header -->
+			<div data-role="content" id="diagnosiscontainer">
+				<div id="diagnosiscontent">
+					<h1>Diagnosis</h1>
+					<div id="diagnosispanel">
+					</div>  <!-- diagnosispanel -->
+				</div>  <!-- / diagnosiscontent -->
+			</div>  <!-- / diagnosiscontainer -->
+			<div data-role="footer"  data-position="fixed" data-id="persistentfooter">
+				<div class="rlFooter">RadioLogicExam &copy; 2016</div>
+			</div>  <!-- / footer -->
+			</div>  <!-- / diagnosis -->
+		
+	<!--
+	*************************************************************************
+	8. Answer Page
+	*************************************************************************
+	-->	
+	<div data-role="page" id="answer" data-title="RadioLogicExam Answer">
+			<div data-role="header" data-position="fixed">
+				<div data-role="navbar">
+					<ul>
+						<li class="tab"><a href="#login">Login</a></li>
+						<li class="tab"><a href="#about">About</a></li>
+						<li class="tab"><a href="#settings">Settings</a></li>
+						<li class="tab"><a href="#cases">Cases</a></li>
+						<li class="tab"><a href="#observations">Observations</a></li>
+						<li class="tab"><a href="#images">Images</a></li>
+						<li class="tab"><a href="#diagnosis">Diagnosis</a></li>
+						<li class="tab"><a href="#" class="ui-btn-active ui-state-persist">Answer</a></li>
+						<li class="tab ui-disabled"><a href="#results">Results</a></li>
+						<li class="tab"><a href="#help">Help</a></li>
+					</ul>
+				</div>  <!-- /navbar -->
+			</div>  <!-- / header -->
+			<div data-role="content" id="answercontainer">
+				<div id="answercontent">
+					<div id="answerpanel"></div>
+				</div>  <!-- / answercontent -->
+			</div>  <!-- / answercontainer -->
+			<div data-role="footer"  data-position="fixed" data-id="persistentfooter">
+				<div class="rlFooter">RadioLogicExam &copy; 2016</div>
+			</div>  <!-- / footer -->
+			</div>  <!-- / answer -->
+		
+	<!--
+	*************************************************************************
+	9. Results Page
+	*************************************************************************
+	-->
+	<div data-role="page" id="results" data-title="RadioLogicExam Results">
+	<div data-role="header"  data-position="fixed">
+		<div data-role="navbar">
+			<ul>
+				<li class="tab"><a href="#login">Login</a></li>
+				<li class="tab"><a href="#about">About</a></li>
+				<li class="tab"><a href="#settings">Settings</a></li>
+				<li class="tab"><a href="#cases">Cases</a></li>
+				<li class="tab ui-disabled"><a href="#observations">Observations</a></li>
+				<li class="tab ui-disabled"><a href="#images">Images</a></li>
+				<li class="tab ui-disabled"><a href="#diagnosis">Diagnosis</a></li>
+				<li class="tab ui-disabled"><a href="#answer">Answer</a></li>
+				<li class="tab"><a href="#" class="ui-btn-active ui-state-persist">Results</a></li>
+				<li class="tab"><a href="#help">Help</a></li>
+			</ul>
+		</div>  <!-- /navbar -->
+	</div>  <!-- / header -->
+	<div data-role="content" id="resultscontainer">
+		<div id="resultscontent">
+			<div id="resultspanel">
+				<div id="chartwrapper">
+					<div id="progresschart"></div>
+					<div id="performancechart"></div>
+				</div> <!-- end chartwrapper -->
+				<div id="chartLegend"></div> 
+				<div id="resultsButtonWrapper">
+				<!--
+				<button disabled class="ui-btn ui-btn-inline">Send my results to the server</button>
+				-->
+				<button disabled class="ui-btn ui-btn-inline"> &nbsp;Send my results to the server &nbsp;</button>
+				<button disabled class="ui-btn ui-btn-inline">Show me results of other users</button>
+				</div>  <!-- end resultsButtonWrapper -->
+			</div>  <!-- end resultspanel -->
+			
+		</div>  <!-- / resultscontent -->
+	</div>  <!-- / resultscontainer -->
+	<div data-role="footer"  data-position="fixed" data-id="persistentfooter">
+	<div class="rlFooter">RadioLogicExam &copy; 2016</div>
+	</div>  <!-- /footer -->
+</div>  <!-- /results -->
+		
+	<!--
+	*************************************************************************
+	10. Help Page
+	*************************************************************************
+	-->	
+	<div data-role="page" id="help" data-title="RadioLogicExam Help">
+	
+			<div data-role="header"  data-position="fixed">
+				<div data-role="navbar">
+					<ul>
+						<li class="tab"><a href="#login">Login</a></li>
+						<li class="tab"><a href="#about">About</a></li>
+						<li class="tab"><a href="#settings">Settings</a></li>
+						<li class="tab"><a href="#cases">Cases</a></li>
+						<li class="tab ui-disabled"><a href="#observations">Observations</a></li>
+						<li class="tab ui-disabled"><a href="#images">Images</a></li>
+						<li class="tab ui-disabled"><a href="#diagnosis">Diagnosis</a></li>
+						<li class="tab ui-disabled"><a href="#answer">Answer</a></li>
+						<li class="tab ui-disabled"><a href="#results">Results</a></li>
+						<li class="tab"><a href="#" class="ui-btn-active ui-state-persist">Help</a></li>
+					</ul>
+				</div>  <!-- /navbar -->
+			</div>  <!-- / header -->
+			<div data-role="content" id="helpcontainer">
+				<div id="helpcontent">
+					<div id="helppanel"></div>
+				</div>  <!-- end helpcontent -->
+			</div>  <!-- end helpcontainer -->
+			<div data-role="footer"  data-position="fixed" data-id="persistentfooter">
+				<div class="rlFooter">RadioLogicExam &copy; 2016</div>
+			</div>  <!-- /footer -->
+		</div>  <!-- /help -->
+	
+	<!--
+	*************************************************************************
+	11. Quit Page
+	*************************************************************************
+	-->	
+	<div data-role="page" id="quit" data-title="RadioLogicExam Quit">
+			<div data-role="content" id="quitcontainer">
+				<div id="quitcontent">
+					<div id="logout_quit">
+						<h2>Thank you for using the RadioLogicExam Tool</h2>
+						<h3>Press the Home Button on your iPad to close the application</h3>
+					</div>  <!-- / logout_quit -->
+				</div>  <!-- end quitcontent -->
+			</div>  <!-- end quitcontainer -->
+			<div data-role="footer"  data-position="fixed" data-id="persistentfooter">
+				<div class="rlFooter">RadioLogicExam &copy; 2016</div>
+			</div>  <!-- /footer -->
+	</div>  <!-- / quit -->
+	</body>
+</html>
