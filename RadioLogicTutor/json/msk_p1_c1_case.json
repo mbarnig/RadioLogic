@@ -1,1 +1,172 @@
-..
+{
+	"Application" : "RadioLogic",
+	"seriesList" : [
+		{"seriesName" : "AX_T1",
+		"instanceList" : [
+			{"imageId" : "IM105" },
+			{"imageId" : "IM106" },
+			{"imageId" : "IM107" },
+			{"imageId" : "IM108" },
+			{"imageId" : "IM109" },
+			{"imageId" : "IM110" },
+			{"imageId" : "IM111" },
+			{"imageId" : "IM112" },
+			{"imageId" : "IM113" },
+			{"imageId" : "IM114" },
+			{"imageId" : "IM115" },
+			{"imageId" : "IM116" },
+			{"imageId" : "IM117" },
+			{"imageId" : "IM118" },
+			{"imageId" : "IM119" },
+			{"imageId" : "IM120" },
+			{"imageId" : "IM121" },
+			{"imageId" : "IM122" },
+			{"imageId" : "IM123" },
+			{"imageId" : "IM124" }
+			]
+		},
+		
+		{"seriesName" : "AX_T1_FS_GADO",
+		"instanceList" : [
+			{"imageId" : "IM40" },
+			{"imageId" : "IM41" },
+			{"imageId" : "IM42" },
+			{"imageId" : "IM43" },
+			{"imageId" : "IM44" },
+			{"imageId" : "IM45" },
+			{"imageId" : "IM46" },
+			{"imageId" : "IM47" },
+			{"imageId" : "IM48" },
+			{"imageId" : "IM49" },
+			{"imageId" : "IM50" },
+			{"imageId" : "IM51" },
+			{"imageId" : "IM52" },
+			{"imageId" : "IM53" },
+			{"imageId" : "IM54" },
+			{"imageId" : "IM55" },
+			{"imageId" : "IM56" },
+			{"imageId" : "IM57" }
+			]
+		},
+		
+		{"seriesName" : "COR_T1",
+		"instanceList" : [
+			{"imageId" : "IM0" },
+			{"imageId" : "IM1" },
+			{"imageId" : "IM2" },
+			{"imageId" : "IM3" },
+			{"imageId" : "IM4" },
+			{"imageId" : "IM5" },
+			{"imageId" : "IM6" },
+			{"imageId" : "IM7" },
+			{"imageId" : "IM8" },
+			{"imageId" : "IM9" },
+			{"imageId" : "IM10" },
+			{"imageId" : "IM11" },
+			{"imageId" : "IM12" },
+			{"imageId" : "IM13" },
+			{"imageId" : "IM14" },
+			{"imageId" : "IM15" },
+			{"imageId" : "IM16" },
+			{"imageId" : "IM17" },
+			{"imageId" : "IM18" },
+			{"imageId" : "IM19" }
+			]
+		},
+		
+		{"seriesName" : "COR_T1_FS_GADO",
+		"instanceList" : [
+			{"imageId" : "IM85" },
+			{"imageId" : "IM86" },
+			{"imageId" : "IM87" },
+			{"imageId" : "IM88" },
+			{"imageId" : "IM89" },
+			{"imageId" : "IM90" },
+			{"imageId" : "IM91" },
+			{"imageId" : "IM92" },
+			{"imageId" : "IM93" },
+			{"imageId" : "IM94" },
+			{"imageId" : "IM95" },
+			{"imageId" : "IM96" },
+			{"imageId" : "IM97" },
+			{"imageId" : "IM98" },
+			{"imageId" : "IM99" },
+			{"imageId" : "IM100" },
+			{"imageId" : "IM101" },
+			{"imageId" : "IM102" },
+			{"imageId" : "IM103" },
+			{"imageId" : "IM104" }
+			]
+		},
+		
+		{"seriesName" : "SAG_T1_FS_GADO",
+		"instanceList" : [
+			{"imageId" : "IM58" },
+			{"imageId" : "IM59" },
+			{"imageId" : "IM60" },
+			{"imageId" : "IM61" },
+			{"imageId" : "IM62" },
+			{"imageId" : "IM63" },
+			{"imageId" : "IM64" },
+			{"imageId" : "IM65" },
+			{"imageId" : "IM66" },
+			{"imageId" : "IM67" },
+			{"imageId" : "IM68" },
+			{"imageId" : "IM69" },
+			{"imageId" : "IM70" },
+			{"imageId" : "IM71" },
+			{"imageId" : "IM72" },
+			{"imageId" : "IM73" },
+			{"imageId" : "IM74" },
+			{"imageId" : "IM75" },
+			{"imageId" : "IM76" },
+			{"imageId" : "IM77" },
+			{"imageId" : "IM78" },
+			{"imageId" : "IM79" },
+			{"imageId" : "IM80" },
+			{"imageId" : "IM81" },
+			{"imageId" : "IM82" },
+			{"imageId" : "IM83" },
+			{"imageId" : "IM84" }
+			]
+		},
+		
+		{"seriesName" : "STIR_AX",
+		"instanceList" : [
+			{"imageId" : "IM20" },
+			{"imageId" : "IM21" },
+			{"imageId" : "IM22" },
+			{"imageId" : "IM23" },
+			{"imageId" : "IM24" },
+			{"imageId" : "IM25" },
+			{"imageId" : "IM26" },
+			{"imageId" : "IM27" },
+			{"imageId" : "IM28" },
+			{"imageId" : "IM29" },
+			{"imageId" : "IM30" },
+			{"imageId" : "IM31" },
+			{"imageId" : "IM32" },
+			{"imageId" : "IM33" },
+			{"imageId" : "IM34" },
+			{"imageId" : "IM35" },
+			{"imageId" : "IM36" },
+			{"imageId" : "IM37" },
+			{"imageId" : "IM38" },
+			{"imageId" : "IM39" }
+			]
+		},
+		
+		{"seriesName" : "AP",
+		"instanceList" : [
+			{"imageId" : "IM127" }
+			]
+		},
+		
+		{"seriesName" : "Profil",
+		"instanceList" : [
+			{"imageId" : "IM128" }
+			]
+		}
+	] 
+}
+		
