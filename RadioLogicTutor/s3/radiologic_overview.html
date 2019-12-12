@@ -1,1 +1,101 @@
-..
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+		<meta charset="UTF-8">
+		<title>RadioLogic Overview</title>
+        <meta name="apple-mobile-web-app-capable" content="yes" >
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="viewport" content="user-scalable=yes, width = device-width, initial-scale = 1, maximum-scale=1">
+		<link rel="shortcut icon" href="https://www.radiologic.fr/favicon.ico">
+		<style>
+		img {width: 90%; max-width: 1024px; display: block; margin: 16px auto}
+        </style>
+    </head>
+    <body>
+        <h2>RadioLogic Overview : 11 octobre 2017 (confidentiel)</h2>
+		<div id="content">
+		<p>RadioLogic est un projet de formation médicale universitaire, destinée à des radiologues. 
+		Il s'agit d'un ensemble d'outils spécifiques:</p>
+		<ul>
+		<li>RadioLogicCreator est l'outil pour adapter des cas cliniques sélectionnés aux besoins de l'outil de formation</li>
+		<li>RadioLogicArchive est le conteneur des cas cliniques de formation générés</li>
+		<li>RadioLogicWeb est le site web public pour présenter et supporter le projet</li>
+		<li>RadioLogicHelpBook est une documentation et guide d'usager pour le projet</li>
+		<li>RadioLogicTutor est l'outil principal permettant une auto-formation et une auto-évaluation des étudiants.
+		Il s'agit d'une application web optimisée pour fonctionner sur iPAD</li>
+		</ul>
+		
+		<h3>RadioLogicCreator</h3>
+		<p>L'outil existant est une app Mac programmée en Swift 3. Elle ne donne pas entièrement satisfaction et je suis
+		en train d'évaluer plusieurs options, par ordre de priorité:</p>
+		<ol>
+		<li>simplifier l'app, l'adapter à Swift 4 et l'héberger dans l'AppStore. J'ai une certificationn de développement Apple.</li>
+		<li>la convertir en plugin HOROS (Osirix)</li>
+		<li>la transformer en application web, en utilisant l'API REST d'Orthanc et des scripts LUA</li>
+		<li>la transformer en plugin Orthanc</li>
+		</ol>
+		<h3>RadioLogicArchive</h3>
+		<p>Au début j'ai hébergé les cas cliniques dans des bouquets Amazon AWS S3 avec des fichiers JSON, contenant les 
+		listes des fichiers DICOM à télécharger. Ensuite je me suis orienté vers le serveur Orthanc, combiné avec un 
+		reverse-proxy Nginx (CORS), et j'ai exploré les solutions suivantes:</p>
+		<ul>
+		<li><a href="http://www.radiologic.fr/orthancpi.html">OrthancPi</a></li>
+		<li><a href="http://www.web3.lu/orthancmac-os-x-el-capitan/">OrthancMac</a></li>
+		<li>Docker sur Synology, Mac, Windows et Debian</li>
+		<li>Synology DSM 6.2 beta avec paquet Orthanc</li>
+		</ul>
+		<p>Tout en gardant le serveur Orthanc comme archive dans un environnement en ligne, je me focalise actuellement 
+		sur l'utilisation d'archives DICOMDIR comprimées pour un usage hors-ligne. Je suis en contact avec Chris Hafey 
+		pour intégrer éventuellement cette option dans son cornerstoneWADOImageLoader.</p> 
+		<h3>RadioLogicWeb</h3>
+		<p>Hébergé sur Amazon AWS S3, le site web <a href="http://www.radiologic.fr/index.html">www.radiologic.fr</a> n'est pas 
+		encore public. J'ai programmé les contenus actuels manuellement avec Notepad++. 
+		Je n'ai pas encore choisi l'outil définitif permettant la gestion et la maintenance du site par des 
+		non-techniciens (personnel médical). Les options envisagées sont:
+		<ul>
+		<li>Wordpress CMS</li>
+		<li>GitHub Pages with Jekyll</li>
+		<li>???</li>
+		</ul>
+		<h3>RadioLogicHelpBook</h3>
+		<p>L'OrthancBook me sert de référence pour rédiger le RadioLogicHelpBook.</p>
+		<h3>RadioLogicTutor</h3>
+		<p>J'ai changé plusieurs fois le nom de l'application centrale du projet. De RadioLogic, je suis passé par 
+		RadioLogicExam à RadioLogicTeacher et maintenant à RadioLogicTutor. J'hésite encore à retenir un nom définif.</p>
+		<p>Comme une image vaut mieux que mille mots, je présente le projet RadioLogicTutor avec des copies écrans.</p>
+		<p>L'application web fonctionne dans tous les navigateurs récents, mais elle est optimisée pour usage sur iPad en 
+		format paysage. Les deux premières images montrent l'installation sur iPAD.</p>
+		<img src="images/install.jpg" alt="install" />
+		<img src="images/radiologic-ipad.jpg" alt="radiologic" />
+		<p>Les usagers sont enregistrés dans le navigateur, jusqu'au maximum de 9. L'usager "admin" a les droits de supprimer 
+		des usagers et de faire un reset.</p>
+		<img src="images/login.jpg" alt="login" />
+		<p>Cette page est à actualiser.</p>
+		<img src="images/about.jpg" alt="about" />
+		<p>La page définitive aura 3 choix pour la sélection de l'archive DICOM: DICOMDIR archive, serveur OrthancPI dans le 
+		réseau local ou adresse IP pour un autre serveur Orthanc local ou distant.</p> 
+		<img src="images/settings.jpg" alt="settings" />
+		<p>Une session comprend plusieurs cas cliniques. Cette page est à adapter pour le contenu DICOMDIR.</p>
+		<img src="images/cases.jpg" alt="cases" />
+		<p>Cette image DICOM contient des tags privés avec les choix du diagnostic.</p>
+		<img src="images/observations.jpg" alt="observations" />
+		<p>Il s'agit du viewer cornerstone modifié avec interface touch. Le viewer est un plugin et pourra être remplacé par
+		un autre outil (video player, photo viewer, ...</p>
+		<img src="images/images.jpg" alt="images" />
+		<img src="images/images2.jpg" alt="images2" />
+		<img src="images/images3.jpg" alt="images3" />
+		<p>Seul un usager enregistré et identifié peut entrer son diagnostic.</p>
+		<img src="images/diagnosis.jpg" alt="diagnosis" />
+		<img src="images/diagnosis2.jpg" alt="diagnosis2" />
+		<p>Cette image DICOM contient des tags privés avec la réponse correcte. L'image et les tags privés seront brouillés
+		pour éviter de voir l'image et de lire les metadonnées de réponse dans un viewer DICOM  standard.</p>
+		<img src="images/answer.jpg" alt="answer" />
+		<p>Un nouveau usager voit une page vide, les résultats sont actualisés après chaque diagnostic et enregistrés 
+		dans le navigateur.</p>
+		<img src="images/results.jpg" alt="results" />
+		<img src="images/results2.png" alt="results2" />
+		<p>Cette page présentera un guide d'usager succint avec un lien vers le RadioLogicHelpBook.</p>
+		<img src="images/help.jpg" alt="help" />
+		</div>
+    </body>
+</html>
