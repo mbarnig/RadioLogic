@@ -1,0 +1,134 @@
+html, body {width:100%; height:100%; border:0; margin:0; padding:0; }
+		
+		/* jquery mobile takes the full width and height of the device, independent from max-width or max-height of a container div */
+		
+		/* set container properties */			
+			#maincontainer,
+			#logincontainer,
+			#aboutcontainer,
+			#settingscontainer,
+			#casescontainer,
+			#observationscontainer,
+			
+			/*
+			#imagescontainer,
+			*/
+			
+			#diagnosiscontainer,
+			#answercontainer,
+			#resultscontainer,
+			#helpcontainer, 
+			#quitcontainer {background: radial-gradient(grey, black); width:100%; height:100%; border:0; margin:0; padding:0;}
+			
+			/*
+			#imagescontainer {background-color: yellow;}
+			*/
+											
+			/* set content properties */
+			#logincontent,
+			#aboutcontent,
+			#settingscontent,
+			#casescontent,
+			#observationscontent,
+			#diagnosiscontent,
+			#answercontent,
+			#resultscontent,
+			#helpcontent  {width:90%; height:90%; background: radial-gradient(#aaaaaa, #333333);margin:1% auto auto auto; border-radius:10px; padding:16px} 
+			
+			#helpcontent {overflow-y: scroll;} 
+			#quitcontent {}
+			
+			#observationscontent, #answercontent {width:95%; height:95%; padding:0;}
+			
+			/*
+			#imagescontent {width:100%; height:100%; background-color: cyan; border:0; margin:0; padding:0; overflow:hidden;}
+			*/
+			#imagescontent {width:100%; height:100%; border:0; margin:0; padding:0; overflow:hidden;}
+			
+			
+			#resultscontent {width:96%;}
+				
+		/* login properties */
+		#userlogin {display: block; width: 80%; height:90%; margin: auto; padding-top:5% }
+		#userlogout {display: none; width: 60%; margin: auto; padding-top: 64px; text-align:center; }
+		#logout_quit {display: block; width: 60%; margin: auto; padding-top: 64px; }
+		.ui-block-b {padding-left:8px}
+			
+		/* about properties */
+		#aboutpanel p {text-align:left;}
+		#aboutpanel {display: block; width: 60%; height:90%; margin: auto; padding-top:3%; font-size: 1.2em;}
+		#aboutpanel a {color: orange; text-decoration:none; }
+		#aboutpanel img {display: block; margin-left: auto; margin-right: auto}
+		
+		/* settings properties */
+		#settingspanel{display: block; width: 80%; height:90%; margin: auto; padding-top:1%; }
+		#admin {display:none; width:100%;}
+		#userpanel {width:100%; height:100px; overflow-y:scroll;}
+		#displayusers {width:100%;}
+		#displayusers p {text-align:left;}
+		#myresets p {text-align:left; }
+		
+		/* cases properties */
+		select {width:100% ! important ; }
+		.thumbContainer {position:absolute; left:0; top:0; bottom:0; width:48px; height:48px; background-image:url("images/thumb.jpg");}
+		#casebox {display:none; height:76%; width:100%; overflow-y:scroll;}
+			
+		/* observations properties */
+		#observationspanel {position:relative; top:16px; width:95%; max-width:960px; height:95%; max-height:640px; margin:auto;}
+		
+		/* images */
+		#imagescontainer {width:100%; height:100%; border:0; margin:0; padding:0;}
+		#imagescontent {position:relative; width:100%; height:100%; border:0; margin:0; padding:0; }
+		#imagesPanel {position:absolute; width:90%; height:100%; top:0; left:10%; border:0; margin:0; padding:0;}
+		
+	
+		#viewPanelLeftTop {position:absolute; top:0; left:0; width: 50%; height: 50%; background-color:#111111; text-align:center; border:solid 1px orange; box-sizing: border-box; margin:0; padding:0; background-image:url("images/ltip.png"); background-size: cover; background-repeat:no-repeat;}
+		#viewPanelLeftBottom {position:absolute; bottom:0; left:0; width: 50%; height: 50%; background-color:#222222; text-align:center; border:solid 1px orange; box-sizing: border-box;  margin:0; padding:0; background-image:url("images/lbip.png"); background-size: cover; background-repeat:no-repeat;}
+		#viewPanelRightTop {position:absolute; top:0; right:0; width: 50%; height: 50%; background-color:#333333; text-align:center; border:solid 1px orange; box-sizing: border-box;  margin:0; padding:0; background-image:url("images/rtip.png"); background-size: cover; background-repeat:no-repeat;}
+		#viewPanelRightBottom {position:absolute; bottom:0; right:0; width: 50%; height: 50%; background-color:#444444; text-align:center; border:solid 1px orange; box-sizing: border-box;  margin:0; padding:0; background-image:url("images/rbip.png"); background-size: cover; background-repeat:no-repeat;}
+		
+		
+		#thumbnailPanel {position:absolute; bottom:0; left:0; height:100%; width:10%; background-color:#555555; overflow-y:scroll; -webkit-overflow-scrolling:touch;}
+		/* scrolling problems when the next element has an absolute position */
+		#thumbnailContainer {height:2000px; width:70%;}
+		.thumbnailWrapper {float:left; width:76px; height:92px; margin:4px 0 0 4px; padding:0; border:1px solid silver;}
+		.thumbnailContent {width:76px; height:76px; margin:0; border:0; padding:0; background-image:url("images/radiologic-76x76g.jpg"); }
+		.thumbnailLegend {background-color:orange; width:76px; height:16px; margin:0; border:0; padding:0; font-size:x-small; text-align:center; color:white; overflow:hidden;}
+		.topleft {position:absolute; top:4px; left:4px; color:orange; display:block; font-size:x-small;}
+		.topright {position:absolute; top:4px; right:4px; color:orange; display:block; font-size:x-small;}
+		.bottomleft {position:absolute; bottom:8px; left:4px; color:orange; display:block; font-size:x-small;}
+		.bottomright {position:absolute; bottom:8px; right:4px; color:orange; display:block; font-size:x-small;}
+		
+		/* diagnosis properties */
+		#diagnosispanel {width:60%; height:40%; margin:auto;}
+				
+		/* answer properties */
+		#answerpanel {position:relative; top:16px; width:95%; max-width:960px; height:95%; max-height:640px; margin:auto;}
+		
+		/* result properties */
+		#resultspanel {width:960px; height:92%; margin:auto; background-color:silver;}
+		#chartwrapper {float:left; width:810px; height:400px; background-color:silver;}
+		#progresschart {float:left; width:400px; height:400px; background-color:silver;}
+		#performancechart {float:right; width:400px; height:400px; background-color:silver;}
+		#chartLegend  {float:right; width:150px; height:400px; background-color:silver;}
+		table.jqplot-table-legend {width:136px;}
+		#resultsButtonWrapper {float:right; width:960px; height:100px; text-align:center; background-color:silver;}
+		
+		/* help properties */
+		#helppanel {width:90%; height:95%; margin:auto;}
+		#helppanel p {text-align:left;}
+		
+			.tab {width: 10% !important; clear: none !important;  /* Prevent line break */ } 
+			/* imageNavigation width = 70%; 7 tabs with 14% */
+			.tab2 {width: 14% !important; clear: none !important;  /* Prevent line break */ } 
+			#imageNavigation {width: 70%; float:left; }
+			#caseInfo {width: 30%; height:37px; float:right; color:white; }
+			#caseInfo p {margin:0; border:0; padding:8px; font-size: 14px; }
+			.ui-footer {height:20px !important; text-align:center !important;  font-size:10px; }
+			h1, h2, h3, p, ul {text-align:center;}
+			
+		/* fix for iNoBounce to allow vertical scrolling */
+		#helpcontent, #settingscontent, #casescontent {overflow:auto; -webkit-overflow-scrolling:touch;}
+		
+		/*  hide vertical scroll bars */
+		#observationspanel, answerpanel {overflow:hidden;}
