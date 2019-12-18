@@ -1,0 +1,22 @@
+{
+  /**
+   * The following entries in the DICOM dictionary allow to display the private RadioLogic tags
+   *   in Orthanc with the correct names and values
+   **/
+
+"Dictionary" : {
+      "4321,1010" : [ "LO", "PossibleDiagnosis0", 1, 1, "RadioLogic" ],
+      "4321,1011" : [ "LO", "PossibleDiagnosis1", 1, 1, "RadioLogic" ],
+      "4321,1012" : [ "LO", "PossibleDiagnosis2", 1, 1, "RadioLogic" ],
+      "4321,1013" : [ "LO", "PossibleDiagnosis3", 1, 1, "RadioLogic" ],
+      "4321,1014" : [ "LO", "PossibleDiagnosis4", 1, 1, "RadioLogic" ],
+      "4321,1015" : [ "LO", "PossibleDiagnosis5", 1, 1, "RadioLogic" ],
+      "4321,1016" : [ "LO", "PossibleDiagnosis6", 1, 1, "RadioLogic" ],
+      "4321,1017" : [ "LO", "PossibleDiagnosis7", 1, 1, "RadioLogic" ],
+      "4321,1018" : [ "LO", "PossibleDiagnosis8", 1, 1, "RadioLogic" ],
+      "4321,1019" : [ "LO", "PossibleDiagnosis9", 1, 1, "RadioLogic" ],
+      "4321,1020" : [ "LO", "CorrectDiagnosis", 1, 1, "RadioLogic" ],
+      "4321,1021" : [ "LO", "ScrambleKey", 1, 1, "RadioLogic" ],
+      "4321,1022" : [ "LO", "ClinicalCaseAuthor", 1, 1, "RadioLogic" ]
+      }
+}
