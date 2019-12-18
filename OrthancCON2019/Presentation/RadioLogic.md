@@ -9,7 +9,7 @@ A few years ago, my son in law, Guillaume Bierry, who is professor of radiology 
 
 ![imagerie-prostate](https://github.com/mbarnig/RadioLogic/blob/master/OrthancCON2019/Presentation/Pictures/imagerie-prostate.png)
 
-Case-based learning (CBL) is an efficient method for radiologist education. Most CBL systems available on the web are based on a single image. Guillaume wanted a tool including a real DICOM viewer to visualize whole medical imaging studies from different modalities. After doing some search work on Google concerning the state of art of available medical imaging software, I took up the challenge to start the development of OFUR (outil de formation universitaire radiologique) in march 2015.
+Case-based learning (CBL) is an efficient method for radiologist education. Most CBL systems available on the web are based on a single image. Guillaume wanted a tool including a real DICOM viewer to visualize whole medical imaging studies from different modalities. After doing some search work on Google concerning the state of art of available medical imaging software, I took up the challenge to start the development of OFUR (outil de formation universitaire radiologique) in march 2015. The website [I do imaging](https://idoimaging.com/), created and maintained by Andrew Crabb, was of great help to find the right medical software.
 
 ### 2. My background
 There are two types of software developers: the specialist who knows everything about nothing and the generalist who knows nothing about everything. I am close to the second category. I had the privilege to work with the first microprocessor Intel 4004 in the early seventies when I was a research assistant at the Federal Institute of Technology in Zurich.
