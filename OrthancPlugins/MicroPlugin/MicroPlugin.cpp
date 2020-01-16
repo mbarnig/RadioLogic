@@ -7,7 +7,7 @@
 OrthancPluginErrorCode ScaleDicomImage(OrthancPluginDicomInstance *instance, const char *instanceId) {
   LOG(INFO) << "*** A new DICOM file with ID " << instanceId << "has been received";
   OrthancPluginContext* context = OrthancPlugins::GetGlobalContext();
-  // do not scale twicce the same DICOM file
+  // do not scale twice the same DICOM file
   if (OrthancPluginGetInstanceOrigin(context, instance) == OrthancPluginInstanceOrigin_Plugin)
   {
     return OrthancPluginErrorCode_Success;
