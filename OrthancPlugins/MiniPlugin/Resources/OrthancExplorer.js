@@ -29,8 +29,6 @@ function myFunction() {
   var myProtocol = myLocation.protocol;
   var myHost = myLocation.host;  // hostname + port number
   console.log("Host : " + myHost);
-  var myQuery = myLocation.query;
-  console.log("Query : " + myQuery);
   var myHash = myLocation.hash;
   console.log("Hash : " + myHash);
   var myURL = myProtocol + "//" + myHost + "/series/" + myHash.split('=')[1]  + "/scale";
