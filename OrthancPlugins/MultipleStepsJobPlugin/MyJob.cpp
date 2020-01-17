@@ -23,7 +23,7 @@ MyJob::~MyJob() {
 }
 
 OrthancPluginJobStepStatus MyJob::Step() {
-  if (MyJob::counter_ == 10) {
+  if (MyJob::counter_ == MyJob::maxSteps_) {
      MyJob::counter_ = 0;
      MyJob::UpdateProgress(1.0);
      Json::Value detailInfo;
